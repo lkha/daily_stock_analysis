@@ -5335,6 +5335,16 @@ Output the complete Decision Dashboard in JSON format."""
         try:
             data = self._load_analysis_json_candidate(stripped)
         except json.JSONDecodeError as exc:
+            # Fork debug: record why the top-level JSON failed to decode.
+            error_pos = getattr(exc, "pos", 0) or 0
+            logger.warning(
+                "[LLM JSON debug] decode failed: %s | len=%d ends_with_brace=%s | around_error=%r | tail=%r",
+                getattr(exc, "msg", str(exc)),
+                len(stripped),
+                stripped.endswith("}"),
+                stripped[max(0, error_pos - 80):error_pos + 80],
+                stripped[-160:],
+            )
             if self._contains_embedded_json_object(text):
                 raise ValueError("ambiguous_json") from exc
             raise
