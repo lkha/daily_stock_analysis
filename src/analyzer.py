@@ -1893,6 +1893,10 @@ class AnalysisResult:
             "medium": "⭐⭐",
             "低": "⭐",
             "low": "⭐",
+            # Mongolian (fork patch: the en slot renders Mongolian)
+            "өндөр": "⭐⭐⭐",
+            "дунд": "⭐⭐",
+            "бага": "⭐",
         }
         return star_map.get(str(self.confidence_level or "").strip().lower(), "⭐⭐")
 
@@ -2712,6 +2716,8 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 - Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
 - Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
 - This applies to nested dashboard text, checklist items, and all narrative summaries.
+- Return exactly one JSON object and nothing else: no text before or after it and no Markdown code fences.
+- Inside JSON string values never use the ASCII double-quote character; quote terms with «…» instead. Do not put raw line breaks inside string values.
 """
         if lang == "ko":
             return base_prompt + """
@@ -5069,6 +5075,8 @@ Output the complete Decision Dashboard in JSON format."""
 - Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
 - Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
 - This applies to all nested dashboard text, checklist items, and every summary field.
+- Return exactly one JSON object and nothing else: no text before or after it and no Markdown code fences.
+- Inside JSON string values never use the ASCII double-quote character; quote terms with «…» instead. Do not put raw line breaks inside string values.
 - When data is missing, say so in Mongolian instead of Chinese.
 """
         elif report_language == "ko":
