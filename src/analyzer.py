@@ -5364,6 +5364,9 @@ Output the complete Decision Dashboard in JSON format."""
                 pass
             else:
                 if stripped[end:].strip():
+                    merged = self._reattach_members_after_early_close(stripped, end)
+                    if merged is not None:
+                        return merged
                     raise
             if not (stripped.startswith("{") and stripped.endswith("}")):
                 raise
@@ -5372,6 +5375,23 @@ Output the complete Decision Dashboard in JSON format."""
         if not isinstance(data, dict):
             raise TypeError("json_root_not_object")
         return data
+
+    @staticmethod
+    def _reattach_members_after_early_close(text: str, end: int) -> Optional[Dict[str, Any]]:
+        """Repair '{...},"key": value}' where the root object closed one brace early.
+
+        Fork patch: seen with Mongolian output, where the model closes the root
+        object and then keeps writing top-level members. Drop that early brace
+        and parse once more; anything else keeps the original error.
+        """
+        trailing = text[end:].lstrip()
+        if not (trailing.startswith(",") and text.rstrip().endswith("}") and text[end - 1] == "}"):
+            return None
+        try:
+            merged = json.loads(text[:end - 1] + text[end:])
+        except json.JSONDecodeError:
+            return None
+        return merged if isinstance(merged, dict) else None
 
     @staticmethod
     def _contains_embedded_json_object(text: str) -> bool:
