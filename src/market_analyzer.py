@@ -1654,7 +1654,8 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
         review_language = self._get_review_language()
         # Korean reuses the English structural template but the model is told to
         # write the entire shell, headings, guidance and conclusion in Korean.
-        shell_language_label = "Korean (한국어)" if self._get_output_language() == "ko" else "English"
+        # Fork patch: the "en" slot writes Mongolian instead of English.
+        shell_language_label = "Korean (한국어)" if self._get_output_language() == "ko" else "Mongolian (Монгол хэл, Cyrillic script)"
 
         # 指数行情信息（简洁格式，不用emoji）
         indices_text = ""

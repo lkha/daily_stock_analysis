@@ -2708,9 +2708,10 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 
 - Keep all JSON keys unchanged.
 - `decision_type` must remain `buy|hold|sell`.
-- All human-readable JSON values must be written in English.
-- Use the common English company name when you are confident; otherwise keep the original listed company name instead of inventing one.
-- This includes `stock_name`, `trend_prediction`, `operation_advice`, `confidence_level`, nested dashboard text, checklist items, and all narrative summaries.
+- Write every human-readable JSON value in Mongolian (Монгол хэл, Cyrillic script), in natural, fluent wording suitable for an investor's daily market note.
+- Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
+- Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
+- This applies to nested dashboard text, checklist items, and all narrative summaries.
 """
         if lang == "ko":
             return base_prompt + """
@@ -5064,10 +5065,11 @@ Output the complete Decision Dashboard in JSON format."""
 ### Output language requirements (highest priority)
 - Keep every JSON key exactly as defined above; do not translate keys.
 - `decision_type` must remain `buy`, `hold`, or `sell`.
-- All human-readable JSON values must be in English.
-- This includes `stock_name`, `trend_prediction`, `operation_advice`, `confidence_level`, all nested dashboard text, checklist items, and every summary field.
-- Use the common English company name when you are confident. If not, keep the listed company name rather than inventing one.
-- When data is missing, explain it in English instead of Chinese.
+- Write every human-readable JSON value in Mongolian (Монгол хэл, Cyrillic script), in natural, fluent wording suitable for an investor's daily market note.
+- Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
+- Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
+- This applies to all nested dashboard text, checklist items, and every summary field.
+- When data is missing, say so in Mongolian instead of Chinese.
 """
         elif report_language == "ko":
             prompt += """
