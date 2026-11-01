@@ -29,7 +29,7 @@ class ReportLanguageTestCase(unittest.TestCase):
     def test_get_signal_level_handles_compound_buy_advice_in_english(self) -> None:
         signal_text, emoji, signal_tag = get_signal_level("Buy / Watch", 40, "en")
 
-        self.assertEqual(signal_text, "Buy")
+        self.assertEqual(signal_text, "Авах")
         self.assertEqual(emoji, "🟢")
         self.assertEqual(signal_tag, "buy")
 
@@ -45,12 +45,12 @@ class ReportLanguageTestCase(unittest.TestCase):
     def test_get_localized_stock_name_replaces_placeholder_for_english(self) -> None:
         self.assertEqual(
             get_localized_stock_name("股票AAPL", "AAPL", "en"),
-            "Unnamed Stock",
+            "Нэргүй хувьцаа",
         )
 
     def test_get_sentiment_label_preserves_higher_band_thresholds(self) -> None:
-        self.assertEqual(get_sentiment_label(80, "en"), "Very Bullish")
-        self.assertEqual(get_sentiment_label(60, "en"), "Bullish")
+        self.assertEqual(get_sentiment_label(80, "en"), "Маш өөдрөг")
+        self.assertEqual(get_sentiment_label(60, "en"), "Өөдрөг")
         self.assertEqual(get_sentiment_label(40, "zh"), "中性")
         self.assertEqual(get_sentiment_label(20, "zh"), "悲观")
 
@@ -63,8 +63,8 @@ class ReportLanguageTestCase(unittest.TestCase):
         self.assertEqual(localize_trend_prediction("very bearish", "zh"), "强烈看空")
 
     def test_bias_status_helpers_support_english_values(self) -> None:
-        self.assertEqual(localize_bias_status("Safe", "en"), "Safe")
-        self.assertEqual(localize_bias_status("警戒", "en"), "Caution")
+        self.assertEqual(localize_bias_status("Safe", "en"), "Аюулгүй")
+        self.assertEqual(localize_bias_status("警戒", "en"), "Болгоомжтой")
         self.assertEqual(get_bias_status_emoji("Safe"), "✅")
         self.assertEqual(get_bias_status_emoji("Caution"), "⚠️")
 
@@ -112,7 +112,7 @@ class KoreanReportLanguageTestCase(unittest.TestCase):
 
     def test_data_sources_label_is_localized(self) -> None:
         self.assertEqual(get_report_labels("zh")["data_sources_label"], "数据来源")
-        self.assertEqual(get_report_labels("en")["data_sources_label"], "Data Sources")
+        self.assertEqual(get_report_labels("en")["data_sources_label"], "Өгөгдлийн эх сурвалж")
         self.assertEqual(get_report_labels("ko")["data_sources_label"], "데이터 출처")
 
     def test_korean_sentiment_label_bands(self) -> None:
@@ -132,7 +132,7 @@ class KoreanReportLanguageTestCase(unittest.TestCase):
         )
 
     def test_existing_languages_unchanged(self) -> None:
-        self.assertEqual(get_sentiment_label(80, "en"), "Very Bullish")
+        self.assertEqual(get_sentiment_label(80, "en"), "Маш өөдрөг")
         self.assertEqual(get_sentiment_label(40, "zh"), "中性")
 
     def test_korean_advice_canonicalizes_to_decision_type(self) -> None:
@@ -146,7 +146,7 @@ class KoreanReportLanguageTestCase(unittest.TestCase):
         self.assertEqual(get_signal_level("매도", 30, "ko"), ("매도", "🔴", "sell"))
 
     def test_korean_values_canonicalize_back_for_other_languages(self) -> None:
-        self.assertEqual(localize_trend_prediction("상승", "en"), "Bullish")
+        self.assertEqual(localize_trend_prediction("상승", "en"), "Өсөлт")
         self.assertEqual(localize_operation_advice("적극 매도", "zh"), "强烈卖出")
 
 

@@ -116,14 +116,14 @@ def _get_market_review_text(language: str) -> dict[str, str]:
     normalized = normalize_report_language(language)
     if normalized == "en":
         return {
-            "root_title": "# 🎯 Market Review",
-            "push_title": "🎯 Market Review",
-            "cn_title": "# A-share Market Recap",
-            "us_title": "# US Market Recap",
-            "hk_title": "# HK Market Recap",
-            "jp_title": "# Japan Market Recap",
-            "kr_title": "# Korea Market Recap",
-            "separator": "> Next market recap follows",
+            "root_title": "# 🎯 Зах зээлийн тойм",
+            "push_title": "🎯 Зах зээлийн тойм",
+            "cn_title": "# Хятадын A хувьцааны зах зээлийн тойм",
+            "us_title": "# АНУ-ын зах зээлийн тойм",
+            "hk_title": "# Хонконгийн зах зээлийн тойм",
+            "jp_title": "# Японы зах зээлийн тойм",
+            "kr_title": "# Солонгосын зах зээлийн тойм",
+            "separator": "> Дараагийн зах зээлийн тойм",
         }
     if normalized == "ko":
         return {
@@ -663,7 +663,7 @@ def _render_sector_payload_markdown_block(
     if not sector_block:
         return ""
     language = normalize_report_language(payload.get("language"))
-    title = "Sector Highlights" if language == "en" else "板块主线"
+    title = "Салбарын гол чиглэл" if language == "en" else "板块主线"
     heading = f"{title_prefix} / {title}" if title_prefix else title
     return f"### {heading}\n\n{sector_block}".strip()
 
@@ -740,7 +740,7 @@ def _render_sector_payload_block(payload: Dict[str, Any]) -> str:
     lines = []
     if top:
         if language == "en":
-            lines.extend(["#### Leading Sectors", "| Rank | Sector | Change |", "|------|--------|--------|"])
+            lines.extend(["#### Тэргүүлэгч салбарууд", "| Байр | Салбар | Өөрчлөлт |", "|------|--------|--------|"])
         else:
             lines.extend(["#### 领涨板块 Top 5", "| 排名 | 板块 | 涨跌幅 |", "|------|------|--------|"])
         for rank, sector in enumerate(top[:5], 1):
@@ -752,7 +752,7 @@ def _render_sector_payload_block(payload: Dict[str, Any]) -> str:
         if lines:
             lines.append("")
         if language == "en":
-            lines.extend(["#### Lagging Sectors", "| Rank | Sector | Change |", "|------|--------|--------|"])
+            lines.extend(["#### Хоцорсон салбарууд", "| Байр | Салбар | Өөрчлөлт |", "|------|--------|--------|"])
         else:
             lines.extend(["#### 领跌板块 Top 5", "| 排名 | 板块 | 涨跌幅 |", "|------|------|--------|"])
         for rank, sector in enumerate(bottom[:5], 1):
@@ -795,9 +795,9 @@ def _persist_market_review_history(
         report_language = normalize_report_language(getattr(config, "report_language", "zh"))
         summary = _summarize_market_review(review_report, report_language)
         if report_language == "en":
-            stock_name = "Market Review"
-            operation_advice = "View review"
-            trend_prediction = "Market review"
+            stock_name = "Зах зээлийн тойм"
+            operation_advice = "Тоймыг үзэх"
+            trend_prediction = "Зах зээлийн тойм"
         elif report_language == "ko":
             stock_name = "시황 리뷰"
             operation_advice = "리뷰 보기"
@@ -906,7 +906,7 @@ def _build_market_review_context_overview(
         metadata["scope"] = diagnostic_snapshot.get("scope") or metadata["scope"]
 
     label = (
-        "Market review" if report_language == "en"
+        "Зах зээлийн тойм" if report_language == "en"
         else "시황 리뷰" if report_language == "ko"
         else "大盘复盘"
     )
@@ -947,7 +947,7 @@ def _summarize_market_review(review_report: str, report_language: str) -> str:
         if text and not text.startswith("---") and not text.startswith(">"):
             return text[:200]
     if report_language == "en":
-        return "Market review report generated."
+        return "Зах зээлийн тоймын тайлан бэлэн боллоо."
     if report_language == "ko":
         return "시황 리뷰 리포트가 생성되었습니다."
     return "大盘复盘报告已生成。"

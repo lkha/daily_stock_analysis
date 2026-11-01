@@ -1154,22 +1154,22 @@ def localize_strategy_conflict_description(conflict_type: Any, language: Optiona
     translations = {
         "directional_opposition": {
             "zh": "策略方向出现对立：部分策略看多，部分策略看空，综合结论需要降低确定性。",
-            "en": "Strategy directions diverge: some strategies are bullish while others are bearish, so conviction should be reduced.",
+            "en": "Стратегиудын чиглэл зөрж байна: зарим нь өсөлт, зарим нь бууралт харж байгаа тул итгэлийг бууруулах хэрэгтэй.",
             "ko": "전략 방향이 엇갈립니다. 일부 전략은 상승을, 일부 전략은 하락을 보며 확신도를 낮춰야 합니다.",
         },
         "wide_score_dispersion": {
             "zh": "策略信号分数分布较宽，说明多策略对行情结构存在明显分歧。",
-            "en": "Strategy signal scores are widely dispersed, indicating meaningful disagreement on market structure.",
+            "en": "Стратегийн дохионы оноо их тархсан нь зах зээлийн бүтцийн талаар мэдэгдэхүйц санал зөрөлдөөн байгааг харуулна.",
             "ko": "전략 신호 점수 분포가 넓어 시장 구조에 대한 전략 간 이견이 큽니다.",
         },
         "high_confidence_dissent": {
             "zh": "存在高置信少数派策略与综合信号明显不一致，应保留反方观点。",
-            "en": "A high-confidence minority strategy materially disagrees with the final signal and should be kept as a dissenting view.",
+            "en": "Өндөр итгэлтэй цөөнх стратеги эцсийн дохиотой эрс зөрж байгаа тул эсрэг байр суурь болгон хадгалах хэрэгтэй.",
             "ko": "높은 확신도의 소수 전략이 종합 신호와 크게 달라 반대 관점으로 보존해야 합니다.",
         },
         "adjustment_contradiction": {
             "zh": "策略加减分方向相互矛盾，说明不同策略对同一标的的边际评分分歧较大。",
-            "en": "Strategy score adjustments contradict each other, showing large disagreement in marginal scoring.",
+            "en": "Стратегиудын онооны тохируулга хоорондоо зөрчилдөж, үнэлгээнд их зөрүү байгааг харуулна.",
             "ko": "전략별 점수 조정 방향이 서로 충돌해 동일 종목의 한계 평가 차이가 큽니다.",
         },
     }
@@ -1244,9 +1244,9 @@ def localize_strategy_synthesis_summary(strategy_synthesis: Any, language: Optio
     conflict_count = strategy_synthesis.get("conflict_count", 0)
     if lang == "en":
         if conflict_count:
-            base = f"Strategy synthesis from {opinion_count} strategies: final signal is {final_signal}, consensus level is {consensus_level}, conflict severity is {conflict_severity}."
+            base = f"{opinion_count} стратегийн нэгтгэл: эцсийн дохио {final_signal}, нэгдсэн байдал {consensus_level}, зөрчлийн түвшин {conflict_severity}."
         else:
-            base = f"Strategy synthesis from {opinion_count} strategies: final signal is {final_signal}, consensus level is {consensus_level}, with no detected conflicts."
+            base = f"{opinion_count} стратегийн нэгтгэл: эцсийн дохио {final_signal}, нэгдсэн байдал {consensus_level}, зөрчил илрээгүй."
         return base
     if lang == "ko":
         if conflict_count:
@@ -1378,14 +1378,14 @@ def get_sentiment_label(score: int, language: Optional[str]) -> str:
     normalized = normalize_report_language(language)
     if normalized == "en":
         if score >= 80:
-            return "Very Bullish"
+            return "Маш өөдрөг"
         if score >= 60:
-            return "Bullish"
+            return "Өөдрөг"
         if score >= 40:
-            return "Neutral"
+            return "Төвийг сахисан"
         if score >= 20:
-            return "Bearish"
-        return "Very Bearish"
+            return "Гутранги"
+        return "Маш гутранги"
 
     if normalized == "ko":
         if score >= 80:

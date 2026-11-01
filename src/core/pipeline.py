@@ -2528,7 +2528,7 @@ class StockAnalysisPipeline:
         advice = (result.operation_advice or "").strip()
         if trend and advice:
             if report_language == "en":
-                return f"Trend view: {trend}; action advice: {advice}."
+                return f"Чиг хандлага: {trend}; зөвлөмж: {advice}."
             if report_language == "ko":
                 return f"추세 결론: {trend}; 대응 전략: {advice}."
             return f"趋势结论：{trend}；操作建议：{advice}。"
@@ -2568,7 +2568,7 @@ class StockAnalysisPipeline:
                 result,
                 report_language,
             ) or (
-                "Analysis pending" if report_language == "en"
+                "Шинжилгээ хүлээгдэж байна" if report_language == "en"
                 else "분석 보완 예정" if report_language == "ko"
                 else "分析待补充"
             )
