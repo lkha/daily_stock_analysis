@@ -2716,6 +2716,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 - Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
 - Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
 - This applies to nested dashboard text, checklist items, and all narrative summaries.
+- Keep it compact: Mongolian needs far more tokens than English and the response is cut off at the output limit. Use at most two short sentences per text field and at most three items per list, and keep the whole JSON under about 5,000 characters.
 - Return exactly one JSON object and nothing else: no text before or after it and no Markdown code fences.
 - Inside JSON string values never use the ASCII double-quote character; quote terms with «…» instead. Do not put raw line breaks inside string values.
 """
@@ -5075,6 +5076,7 @@ Output the complete Decision Dashboard in JSON format."""
 - Keep these four fields in English exactly, because the application translates them itself: `operation_advice` (one of: Strong Buy, Buy, Hold, Watch, Reduce, Sell, Strong Sell), `trend_prediction` (one of: Strong Bullish, Bullish, Sideways, Bearish, Strong Bearish), `confidence_level` (High, Medium or Low) and `stock_name` (the original listed company name; do not translate company names).
 - Keep tickers, numbers, prices, percentages, dates and indicator names (MA, RSI, MACD, etc.) unchanged.
 - This applies to all nested dashboard text, checklist items, and every summary field.
+- Keep it compact: Mongolian needs far more tokens than English and the response is cut off at the output limit. Use at most two short sentences per text field and at most three items per list, and keep the whole JSON under about 5,000 characters.
 - Return exactly one JSON object and nothing else: no text before or after it and no Markdown code fences.
 - Inside JSON string values never use the ASCII double-quote character; quote terms with «…» instead. Do not put raw line breaks inside string values.
 - When data is missing, say so in Mongolian instead of Chinese.
